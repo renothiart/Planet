@@ -35,18 +35,7 @@ app.get('/', function (req, res, next) {
   })
 });
 
-// TODO
-app.post('/', function (req, res, next) {
-  var questionText = req.body.question;
-  var q = new Question({ questionText: questionText, author: req.session.user })
-  q.save(function (err, result) {
-    if (!err) {
-      res.redirect('/')
-    } else {
-      next(err)
-    }
-  })
-})
+
 
 app.use('/account', accountRouter);
 app.use('/schedule', scheduleRouter);

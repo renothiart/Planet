@@ -10,11 +10,6 @@ $(document).ready(function () {
   //setInterval(getSchedules, 5000);
 
   function getSchedules() {
-    // TODO: make an ajax request to /api/getQuestions. on success
-    //       set  the data variable equal to the response and render
-    //       out the question previews (by callingrenderPreviews())
-    //       Later on in the writeup, also render the active question 
-    //       (to update it) with renderactive()
     $.ajax({
       url: '/api/getSchedules',
       dataType: 'json',

@@ -70,7 +70,6 @@ router.post('/updateSchedule', function (req, res, next) {
             var userSchedules = schedule.userSchedules['dic'];
             userSchedules[req.session.user] = userSchedule;
             schedule.markModified('userSchedules.dic');
-            console.log(schedule.userSchedules[req.session.user]);
             schedule.save(function (saveErr, result) {
                 if (saveErr) next(saveErr);
                 res.json({ status: 'OK' })

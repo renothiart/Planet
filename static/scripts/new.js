@@ -12,7 +12,6 @@ $(document).ready(function () {
     }
 
     function renderSchedule() {
-        console.log('in render sched');
         $('#schedule').html(
             schedule.map((i, idx) => '<text class="time-text">' + ((idx % 12) + 1) + ':00</text><li class="time-block" data-id="' + idx + '" data-val="' + i + '"></li>').join('')
         )
