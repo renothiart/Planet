@@ -1,0 +1,65 @@
+<html>
+  <head>
+    <title>Planet</title>
+    <script src="/static/scripts/lib/jquery.min.js"></script>
+    <script src="/static/scripts/main.js"></script>
+    <link rel="stylesheet" type="text/css" href="/static/styles/styles.css"/>
+  </head>
+  <body>
+    <div class="nav">
+      <h1>Planet</h1>
+      <% if (user) { %>
+      <p>Welcome <%= user %> | 
+      <a href="/schedule/new">New Schedule</a>
+      |
+      <a href="/">Your Schedules</a>
+      |
+      <a href="/account/logout">Log out</a>
+      </p>
+      <% } else { %>
+      <p>Welcome to Planet! | 
+      <a href="/account/login">Log in</a> | 
+      <a href="/account/signup">Sign up</a>
+      </p>
+      <% } %>
+    </div>
+    <div class="main-body">
+      <div class="left-col">
+      <% if (user) { %>
+      <a href="/schedule/new" class="btn" id="new-schedule">Create New Schedule</a>
+      <% } else { %>
+      <a class="btn" href="/account/login">Log in to create a schedule</a>
+      <% } %>
+      <h2>Your Schedules:</h2>
+      <ul id="schedules">
+        <% if (typeof schedules == 'object') { %>
+          <% schedules.forEach(function(s) { %>
+          <li data-sid=<%= s.id %>><%= s.scheduleName %></li>
+          <% }) 
+        } %>
+      </ul>
+      </div>
+      <div class="right-col">
+        <div id="show-schedule" style="display:none">
+            <div class="schedule-area" style="display:none">
+              <h2 id="schedule-name"></h2>
+              <h2 id="schedule-date"></h2>
+              <h2 id="schedule-creator"></h2>
+              <ul id="schedule">
+                <% for(let i = 0; i < 23; i++) { %>
+                <li class="time-block" data-id=<%= i %>> ></li>
+                <% } %>
+              </ul>
+            </div>
+            <br/><br/>
+            <% if (user) { %>
+            <a class="btn" type="submit" id="apply-changes">Apply Changes</a>
+            <label for="invitee">Username: </label>
+            <textarea id="invitee"></textarea>
+            <a class="btn" type="submit" id="invite-user">Invite User</a>
+            <% } %>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

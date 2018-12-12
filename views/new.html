@@ -1,0 +1,85 @@
+<html>
+  <head>
+    <title>Planet | New Schedule</title>
+    <script src="/static/scripts/lib/jquery.min.js"></script>
+    <script src="/static/scripts/new.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script>
+        $( function() {
+            $("#datepicker" ).datepicker();
+        } );
+    </script>
+    <script>
+        $( function() {
+            $( "#slider-range" ).slider({
+                range: true,
+                min: 0,
+                max: 23,
+                values: [ 8, 16 ],
+                slide: function( event, ui ) {
+                    $("#start-time").val(((ui.values[0] % 12) + 1) + ":00");
+                    $("#end-time").val(((ui.values[1] % 12) + 1) + ":00");
+                }
+            });
+            $("#start-time").val((($("#slider-range").slider( "values", 0 ) % 12) + 1) + ":00");
+            $("#end-time").val((($("#slider-range").slider( "values", 1 ) % 12) + 1) + ":00");
+        } );
+    </script>
+    <link rel="stylesheet" type="text/css" href="/static/styles/styles.css"/>
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+  </head>
+  <body>
+    <div class="nav">
+      <h1>Planet</h1>
+      <% if (user) { %>
+      <p>Welcome <%= user %> | 
+      <a href="/schedule/new">New Schedule</a>
+      |
+      <a href="/">Your Schedules</a>
+      |
+      <a href="/account/logout">Log out</a>
+      </p>
+      <% } else { %>
+        <p>Welcome to Planet! | 
+        <a href="/account/login">Log in</a> | 
+        <a href="/account/signup">Sign up</a>
+        </p>
+      <% } %>
+    </div>
+    <div class="main-body">
+      <div class="new-left-col">
+        <% if (user) { %>
+        <p>
+            Name the schedule:
+            <input type="text" id="schedule-name-text">
+        </p>
+        <p>
+            Pick a date:
+            <input type="text" id="datepicker">
+        </p>
+        <p>
+            <label for="start-time">Start time:</label>
+            <input type="text" id="start-time" readonly style="border:0; color:#55286F; font-weight:bold;">
+            <label for="end-time"> - End time:</label>
+            <input type="text" id="end-time" readonly style="border:0; color:#55286F; font-weight:bold;">
+
+            <div id="slider-range"></div>
+        </p>
+        <a href="#" class="btn" id="new-schedule-btn">Create New Schedule</a>
+        <% } else { %>
+        <a class="btn" href="/account/login">Log in to create a schedule</a>
+        <% } %>
+        </div>
+      <div class="new-right-col">
+            <div class="schedule-area" style="display:none">
+                <ul id="schedule">
+                    <% for(let i = 0; i < 23; i++) { %>
+                    <li class="time-block" data-id=<%= i %>> ></li>
+                    <% } %>
+                </ul>
+            </div>
+            <a href="#" class="btn" id="new-schedule-submit" style="display:none">Submit Schedule</a>
+      </div>
+    </div>
+  </body>
+</html>
